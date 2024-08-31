@@ -1,4 +1,4 @@
-import re, os
+import re, os, yaml
 
 archive_root = "/home/penguino/game-archive"
 
@@ -11,6 +11,11 @@ def clean_filename(s: str) -> str:
 
     return s
 
-for _, _, files in os.walk(archive_root):
+config_file = open(archive_root + "/config.yaml", 'r')
+config_yaml = yaml.safe_load(config_file)
+
+system_labels = list(config_yaml["systems"])
+
+for _, subDirectory, files in os.walk(archive_root):
     for name in files:
         print(clean_filename(name))
