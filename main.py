@@ -56,7 +56,7 @@ for root, _, files in os.walk(archive_root):
 
     for filename in files:
         if re.search(query, filename, re.IGNORECASE):
-            print(f"[{matching_system}] " + clean_filename(filename))
+            print(f"[ {matching_system} ] " + clean_filename(filename))
             num_matching_games += 1
 
 print(f"{num_matching_games} games found.")
