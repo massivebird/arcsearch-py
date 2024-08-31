@@ -1,4 +1,4 @@
-import re, os, yaml, termcolor
+import re, os, yaml
 
 archive_root = "/home/penguino/game-archive"
 
