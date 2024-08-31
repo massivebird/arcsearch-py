@@ -11,7 +11,6 @@ def clean_filename(s: str) -> str:
 
     return s
 
-for root, subfolders, files in os.walk(archive_root):
+for _, _, files in os.walk(archive_root):
     for name in files:
-        # first, clean the filename
         print(clean_filename(name))
