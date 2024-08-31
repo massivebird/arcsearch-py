@@ -16,6 +16,23 @@ config_yaml = yaml.safe_load(config_file)
 
 system_labels = list(config_yaml["systems"])
 
-for _, subDirectory, files in os.walk(archive_root):
+for root, subDirectory, files in os.walk(archive_root):
+
+    dividers = re.search(r'/', root)
+
+    if dividers == None:
+        continue # no idea how this could happen
+
+    skip_it = True
+    for label in system_labels:
+        if root.__contains__(str(label)):
+            skip_it = False
+            break
+
+    if skip_it:
+        continue
+
+    perhaps_system = root[0:dividers.end()]
+
     for name in files:
         print(clean_filename(name))
