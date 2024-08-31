@@ -43,7 +43,7 @@ for label in config_yaml["systems"]:
 # Displayed at the end of the recursive archive walk
 num_matching_games = 0
 
-for root, subDirectory, files in os.walk(archive_root):
+for root, _, files in os.walk(archive_root):
     matching_system = None
     for system in systems:
         if f"{archive_root}/{system.path}" in root:
