@@ -32,7 +32,5 @@ for root, subDirectory, files in os.walk(archive_root):
     if skip_it:
         continue
 
-    perhaps_system = root[0:dividers.end()]
-
     for name in files:
         print(clean_filename(name))
