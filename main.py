@@ -4,8 +4,9 @@ archive_root = "/home/penguino/game-archive"
 
 args = sys.argv
 
-if len(args) == 0:
+if len(args) == 1:
     print("Error: please provide a query.")
+    sys.exit(1)
 
 query = args[1]
 
