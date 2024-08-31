@@ -40,6 +40,9 @@ for label in config_yaml["systems"]:
     color = sys['color']
     systems.append(GameSystem(sys['path'], sys['display_name'], color[0], color[1], color[2]))
 
+# Displayed at the end of the recursive archive walk
+num_matching_games = 0
+
 for root, subDirectory, files in os.walk(archive_root):
     matching_system = None
     for system in systems:
@@ -54,3 +57,6 @@ for root, subDirectory, files in os.walk(archive_root):
     for filename in files:
         if re.match(query, filename, re.IGNORECASE):
             print(f"[{matching_system}] " + clean_filename(filename))
+            num_matching_games += 1
+
+print(f"{num_matching_games} games found.")
