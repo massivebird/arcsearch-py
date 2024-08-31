@@ -1,6 +1,13 @@
-import re, os, yaml
+import re, os, yaml, sys
 
 archive_root = "/home/penguino/game-archive"
+
+args = sys.argv
+
+if len(args) == 0:
+    print("Error: please provide a query.")
+
+query = args[1]
 
 config_file = open(archive_root + "/config.yaml", 'r')
 config_yaml = yaml.safe_load(config_file)
@@ -44,4 +51,5 @@ for root, subDirectory, files in os.walk(archive_root):
         continue
 
     for filename in files:
-        print(f"[{matching_system}] " + clean_filename(filename))
+        if re.match(query, filename, re.IGNORECASE):
+            print(f"[{matching_system}] " + clean_filename(filename))
