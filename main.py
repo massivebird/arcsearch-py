@@ -1,4 +1,7 @@
-import re, os, yaml, sys
+import re
+import os
+import yaml
+import sys
 
 archive_root = "/home/penguino/game-archive"
 
@@ -10,17 +13,19 @@ if len(args) == 1:
 
 query = args[1]
 
-config_file = open(archive_root + "/config.yaml", 'r')
+config_file = open(archive_root + "/config.yaml", "r")
 config_yaml = yaml.safe_load(config_file)
 
-def clean_filename(s: str) -> str:
-    s = re.sub(r'\(.*\)|\[.*\]', "", s)
-    extension_idx = re.search(r'\.', s)
 
-    if extension_idx != None:
-        s = s[0:extension_idx.end() - 1]
+def clean_filename(s: str) -> str:
+    s = re.sub(r"\(.*\)|\[.*\]", "", s)
+    extension_idx = re.search(r"\.", s)
+
+    if extension_idx is not None:
+        s = s[0 : extension_idx.end() - 1]
 
     return s
+
 
 class GameSystem:
     def __init__(self, path, name, r, g, b):
@@ -33,12 +38,15 @@ class GameSystem:
     def get_path(self) -> str:
         return self.path
 
+
 # Compile game systems from archive configuration file
 systems = []
 for label in config_yaml["systems"]:
-    sys = config_yaml['systems'][label]
-    color = sys['color']
-    systems.append(GameSystem(sys['path'], sys['display_name'], color[0], color[1], color[2]))
+    sys = config_yaml["systems"][label]
+    color = sys["color"]
+    systems.append(
+        GameSystem(sys["path"], sys["display_name"], color[0], color[1], color[2])
+    )
 
 # Displayed at the end of the recursive archive walk
 num_matching_games = 0
@@ -51,7 +59,7 @@ for root, _, files in os.walk(archive_root):
 
     # If this path does not correspond to a defined system,
     # then continue to the next path
-    if matching_system == None:
+    if matching_system is None:
         continue
 
     for filename in files:
